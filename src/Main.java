@@ -13,12 +13,14 @@ import java.awt.EventQueue;
 //import jdk.internal.org.xml.sax.SAXException;
 //test voor git werkt het?
 import java.io.IOException;
+import java.time.Clock;
 import java.util.Collections;
 import java.util.List;
 
 
 public class Main {
     public static void main(String argv[]) throws ParserConfigurationException, SAXException, IOException {
+        System.out.println("Test voor git.");
         //xmlfiles inlezen
         ReadXMLFile readXMLFile = new ReadXMLFile();
         List<Process> processlist1 = readXMLFile.leesProcessen("processen10000.xml");
