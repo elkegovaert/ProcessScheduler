@@ -11,6 +11,17 @@ public class Process {
     //constructors
     public Process() {}
 
+    public Process(Process p) {
+        id = p.id;
+        arrivalTime = p.arrivalTime;
+        serviceTime = p.serviceTime;
+        startTime = p.startTime;
+        endTime = p.endTime;
+        TAT = p.TAT;
+        normTAT = p.normTAT;
+        waitTime = p.waitTime;
+    }
+
     public Process(int id, int arrivalTime, int serviceTime) {
         this.id = id;
         this.arrivalTime = arrivalTime;
