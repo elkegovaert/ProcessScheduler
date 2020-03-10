@@ -41,18 +41,10 @@ public class Main {
         //Collections.sort(processlist5, new SortByServiceTime());
         Collections.sort(processlisttest, new SortByServiceTime());
         
-        
-        //Test of goed gesorteerd is geweest
-        /*
-        for(int i=0; i<processlist1.size();i++) {
-        	System.out.println(processlist1.get(i));
-        }
-        */
-        
         //FCFS
-        List<Process> processlist1FCFS=FCFS(processlist1);
-        List<Process> processlist2FCFS=FCFS(processlist2);
-        List<Process> processlist5FCFS=FCFS(processlist5);
+        List<Process> processlist1FCFS= FirstComeFirstServed.FCFS(processlist1);
+        List<Process> processlist2FCFS= FirstComeFirstServed.FCFS(processlist2);
+        List<Process> processlist5FCFS= FirstComeFirstServed.FCFS(processlist5);
         
         double totgenTAT = 0;
         
@@ -84,7 +76,6 @@ public class Main {
     }
     
     static public void plotTimeWait(List<Process> processList) {
-    	
         EventQueue.invokeLater(() -> {
 
         	LineChart ex = new LineChart(processList);
@@ -92,49 +83,5 @@ public class Main {
         });
     	
     }
- 
-    //First Come First Served Scheduling Algorithme
-    static public List<Process> FCFS(List<Process> processList) {
-    	
-    	//Process 1 wordt steeds als eerste uitgevoerd
-    	Process process1 = processList.get(0);
-    	int serviceTime1=process1.getServiceTime();
-    	int endTime1=process1.getServiceTime()+process1.getArrivalTime();
-    	process1.setEndTime(endTime1);
-    	process1.setWaitTime(0);
-    	process1.setStartTime(process1.getArrivalTime());
-    	process1.setTAT(0+serviceTime1);
-    	process1.setNormTAT(process1.getTAT()/serviceTime1);
-    	
-    	for(int i=1;i<processList.size();i++) {
-    		
-    		Process processVorige = processList.get(i-1);
-    		Process process=processList.get(i);
-    		int arrivalTime = process.getArrivalTime();
-    		int serviceTime = process.getServiceTime();
-    		int waitTime = processVorige.getEndTime()-arrivalTime;
-    		if(waitTime<0)waitTime=0;
-    		int startTime;
-    		if(processVorige.getEndTime()<arrivalTime) {
-    			startTime=arrivalTime;
-    		}
-    		else {
-    			startTime=processVorige.getEndTime();
-    		}
-    		int endTime = startTime+serviceTime;
-    		int TAT = serviceTime + waitTime;
-    		double normTAT = (double)TAT/(double)serviceTime;
-    		
-    		process.setStartTime(startTime);
-    		process.setEndTime(endTime);
-    		process.setWaitTime(waitTime);
-    		process.setTAT(TAT);
-    		process.setNormTAT(normTAT);
-    		
-    	}
-    	
-    	return processList;
-    }
-    
     
 }
