@@ -50,7 +50,8 @@ public class Main {
         plotGenTAT(processlist5FCFS);
         plotTimeWait(processlist5FCFS);
 
-        //
+        //SPN
+
         
     }
     

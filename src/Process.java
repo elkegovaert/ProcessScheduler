@@ -17,6 +17,11 @@ public class Process {
         this.serviceTime = serviceTime;
 
     }
+
+    public int compareTo(Object o) {
+        Process p = (Process) o;
+        return this.serviceTime < p.serviceTime ? -1 : 1;
+    }
     
     //Override toString
     public String toString() {
@@ -50,17 +55,13 @@ public class Process {
         this.serviceTime = serviceTime;
     }
 
-    public int getStartTime() {
-        return startTime;
-    }
+    public int getStartTime() { return startTime; }
 
     public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
-        return endTime;
-    }
+    public int getEndTime() { return endTime; }
 
     public void setEndTime(int endTime) {
         this.endTime = endTime;
