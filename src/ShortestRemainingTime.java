@@ -89,7 +89,7 @@ public class ShortestRemainingTime {
 
 
 
-        //hulp que
+        //hulp queue
         Queue<Process> toDoJobs = new LinkedList<>();
 
         for (int i=0; i<processList.size(); i++) {

@@ -85,12 +85,12 @@ public class Main {
         */
 
 		//SRT
-		/*ShortestRemainingTime srt = new ShortestRemainingTime();
+		ShortestRemainingTime srt = new ShortestRemainingTime();
 
 
 		List<Process> processlist1SRT= srt.SRT(processlist1);
-		List<Process> processlist2SRT=srt.SRT(processlist2);
-		List<Process> processlist5SRT=srt.SRT(processlist5);
+		/*List<Process> processlist2SRT=srt.SRT(processlist2);
+		List<Process> processlist5SRT=srt.SRT(processlist5);*/
 
 
         for(int i = 0; i < 20;i++){
@@ -102,14 +102,14 @@ public class Main {
         plotGenTAT(processlist1SRT);
         plotTimeWait(processlist1SRT);
 
-        plotGenTAT(processlist2SRT);
+        /*plotGenTAT(processlist2SRT);
         plotTimeWait(processlist2SRT);
 
         plotGenTAT(processlist5SRT);
         plotTimeWait(processlist5SRT);*/
 
 		//RR
-		RoundRobin rr2 = new RoundRobin(10);
+		/*RoundRobin rr2 = new RoundRobin(10);
 		List<Process> processlist1RR2 = rr2.schedule(processlist1);
 		List<Process> processlist2RR2= rr2.schedule(processlist2);
 		List<Process> processlist5RR2= rr2.schedule(processlist5);
@@ -129,7 +129,7 @@ public class Main {
 		plotTimeWait(processlist2RR2);
 
 		plotGenTAT(processlist5RR2);
-		plotTimeWait(processlist5RR2);
+		plotTimeWait(processlist5RR2);*/
 
     }
     
