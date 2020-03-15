@@ -11,74 +11,84 @@ public class ShortestRemainingTime {
 
 
         //Drop box
-/*        Queue<Process> que = new LinkedList<>();
+        Queue<Process> toDoJobs = new LinkedList<>();
 
-        for (Process p : processList) {
-            que.add(new Process(p));
+        for (int i = 0; i<processList.size(); i++) {
+            toDoJobs.add(new Process(processList.get(i)));
         }
 
 
-        //Verschillende que's aand de hand van waar het proces zich bevindt
-        List<Process> finishedProcesses = new ArrayList<>();
-        PriorityQueue<Process> waitingProcesses = new PriorityQueue<Process>(10, (a, b) -> a.getRemainingServiceTime() - b.getRemainingServiceTime());
-        PriorityQueue<Process> currentProcess = new PriorityQueue<>();
-        Process temp;
 
-        //counter duidt op welk timeslot de processor zich bevindt
-        int count = 0;
+        List<Process> doneProcesses = new ArrayList<>();
+
+
+        PriorityQueue<Process> incomingProcesses = new PriorityQueue<Process>(100, (p1, p2) -> p1.getRemainingServiceTime() - p2.getRemainingServiceTime());
+
+        //processes that are ready to handel
+        PriorityQueue<Process> readyProcesses = new PriorityQueue<>(100, (p1, p2) -> p1.getRemainingServiceTime() - p2.getRemainingServiceTime());
+        Process currentRunningProcess;
+
+        int curentTime = 0;
 
         //Loop blijft gaan tot alle processen afgerond zijn
-        while (finishedProcesses.size() != processList.size()) {
+        while (doneProcesses.size() != processList.size()) {
 
-            if (!currentProcess.isEmpty()) {
-                //procces stond al van vorige doorgaan op de processor-> service time needed moet eerst verlaagd worden
-                temp = currentProcess.peek();
-                temp.setRemainingServiceTime(temp.getRemainingServiceTime() - 1);
-                if (temp.getRemainingServiceTime() == 0) {
+            if (!readyProcesses.isEmpty()) {
 
-                    temp = currentProcess.poll();
+                currentRunningProcess = readyProcesses.peek();
+                int remainingTime = currentRunningProcess.getRemainingServiceTime();
+                currentRunningProcess.setRemainingServiceTime(remainingTime - 1);
 
-                    //lokale parameter instellen en andere uitrekenen
-                    temp.setEndTime(count);
-                    temp.calculateStats();
+                //check if process is done
+                if (currentRunningProcess.getRemainingServiceTime() == 0) {
 
-                    finishedProcesses.add(temp);
+                    //take process out of ready processes
+                    currentRunningProcess = readyProcesses.poll();
 
+                    currentRunningProcess.setEndTime(curentTime);
+                    currentRunningProcess.calculateStats();
 
+                    doneProcesses.add(currentRunningProcess);
                 }
             }
 
-            //check of er processen zijn die aan de wachtrij mogen worden toegevoegd
-            while (que.peek() != null && que.peek().getArrivalTime() <= count)
-                waitingProcesses.add(que.poll());
+            //shedule next process/job in queue
+            //see if there are incoming job/process
+            while (toDoJobs.peek() != null && toDoJobs.peek().getArrivalTime() == curentTime){
+                incomingProcesses.add(toDoJobs.poll());
+            }
 
-            if (currentProcess.isEmpty() && !waitingProcesses.isEmpty()) {
-                //Uit te voeren process uit de wachtrij halen
-                temp = waitingProcesses.poll();
 
-                //Parmeters instellen
-                temp.setStartTime(count);
+            if (readyProcesses.peek()==null && incomingProcesses.peek()!=null) {
 
-                //SupportClasses.Process op de processor zetten
-                currentProcess.add(temp);
+                currentRunningProcess = incomingProcesses.poll();
 
-            } else if (!currentProcess.isEmpty() && !waitingProcesses.isEmpty()) {
-                temp = currentProcess.peek();
 
-                //wanneer er processen wachten met lagere servicetime needed -> switchen
-                if (temp.getRemainingServiceTime() > waitingProcesses.peek().getRemainingServiceTime()) {
-                    temp = currentProcess.poll();
-                    Process p = waitingProcesses.peek();
-                    if (p.getStartTime() == 0)
-                        p.setStartTime(count);
+                currentRunningProcess.setStartTime(curentTime);
 
-                    currentProcess.add(waitingProcesses.poll());
-                    waitingProcesses.add(temp);
+
+                readyProcesses.add(currentRunningProcess);
+
+            }
+            else if (readyProcesses.peek()!=null && incomingProcesses.peek()!=null) {
+
+
+                if (readyProcesses.peek().getRemainingServiceTime() > incomingProcesses.peek().getRemainingServiceTime()) {
+                    currentRunningProcess = readyProcesses.poll();
+                    Process process = incomingProcesses.peek();
+
+                    //set Start Time
+                    if (process.getStartTime() == 0) {
+                        process.setStartTime(curentTime);
+                    }
+
+
+                    readyProcesses.add(incomingProcesses.poll());
+                    incomingProcesses.add(currentRunningProcess);
                 }
             }
 
-            count++;
-*/
+            curentTime++;
 
 
 
@@ -89,6 +99,7 @@ public class ShortestRemainingTime {
 
 
 
+/*
         //hulp que
         Queue<Process> toDoJobs = new LinkedList<>();
 
@@ -143,7 +154,7 @@ public class ShortestRemainingTime {
                     currentRunningProcess = readyJobs.poll();
                     int remainingTime = currentRunningProcess.getRemainingServiceTime() - 1;
                     currentRunningProcess.setRemainingServiceTime(remainingTime);
-                    readyJobs.add(incomingJobs.poll());
+                   // readyJobs.add(incomingJobs.poll());
                 }
                 else {
                     currentRunningProcess = incomingJobs.poll();
@@ -177,13 +188,13 @@ public class ShortestRemainingTime {
         }
 
         return doneJobs;
-
+*/
 
         }
 
         //uncoment volgende voor dropbox
-        //return finishedProcesses;
-   // }
+        return doneProcesses;
+    }
 }
 
 
