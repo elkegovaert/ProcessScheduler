@@ -1,7 +1,8 @@
-public class Process {
+public class Process implements Comparable {
     private int id;
     private int arrivalTime;
     private int serviceTime;
+    private int remainingServiceTime;
     private int startTime;
     private int endTime;
     private int TAT;//serviceTime+waitTime
@@ -9,7 +10,9 @@ public class Process {
     private int waitTime;
 
     //constructors
-    public Process() {}
+    public Process() {
+        remainingServiceTime = -1;
+    }
 
     public Process(Process p) {
         id = p.id;
@@ -20,13 +23,14 @@ public class Process {
         TAT = p.TAT;
         normTAT = p.normTAT;
         waitTime = p.waitTime;
+        remainingServiceTime = p.remainingServiceTime;
     }
 
     public Process(int id, int arrivalTime, int serviceTime) {
         this.id = id;
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
-
+        remainingServiceTime = serviceTime;
     }
 
     public int compareTo(Object o) {
@@ -36,10 +40,16 @@ public class Process {
     
     //Override toString
     public String toString() {
-    	return "id: "+id+" ArrivelTime: "+arrivalTime+" ServiceTime: "+serviceTime+" StartTime: "+startTime+" EndTime: "+endTime+" TAT: "+TAT+" Genormaliseerde TAT: "+normTAT+" WaitTime: "+waitTime;
+    	return "id: "+id+" ArrivalTime: "+arrivalTime+" ServiceTime: "+serviceTime+" Remaining Service Time: "+remainingServiceTime+" StartTime: "+startTime+" EndTime: "+endTime+" TAT: "+TAT+" Genormaliseerde TAT: "+normTAT+" WaitTime: "+waitTime;
     }
-    
-    
+
+    public void calculateStats() {
+        this.waitTime = endTime - arrivalTime - serviceTime;
+        this.TAT = waitTime + serviceTime;
+        this.normTAT = (double) this.TAT / serviceTime;
+    }
+
+
 
     //getters en setters
     public int getId() {
@@ -100,5 +110,13 @@ public class Process {
 
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
+    }
+
+    public int getRemainingServiceTime() {
+        return remainingServiceTime;
+    }
+
+    public void setRemainingServiceTime(int remainingServiceTime) {
+        this.remainingServiceTime = remainingServiceTime;
     }
 }

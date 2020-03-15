@@ -23,7 +23,7 @@ public class ReadXMLFile {
         // GLENN
         // File xmlFile = new File("C:\\Users\\glenn\\eclipse-workspace\\ProcessScheduler\\"+bestandnaam);
         // ELKE
-        File xmlFile = new File("C:\\Users\\elkeg\\IdeaProjects\\ProcessScheduler\\"+bestandnaam);
+        File xmlFile = new File("C:\\Users\\glenn\\IntelliJ-workspace\\ProcessSchedulerGit\\"+bestandnaam);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(xmlFile);
@@ -51,7 +51,9 @@ public class ReadXMLFile {
                             process.setArrivalTime(Integer.parseInt(etmp.getTextContent()));
                         }
                         if (etmp.getNodeName() == "servicetime") {
-                            process.setServiceTime(Integer.parseInt(etmp.getTextContent()));
+                            int serviceTime = Integer.parseInt(etmp.getTextContent());
+                            process.setServiceTime(serviceTime);
+                            process.setRemainingServiceTime(serviceTime);
                         }
                     }
                 }
@@ -59,10 +61,11 @@ public class ReadXMLFile {
             }
         }
         //enkel voor dubbelcheck uitsschrijven
+        /*
         for (int i = 0; i < processList.size(); i++) {
             System.out.println(processList.get(i).getId() + " " + processList.get(i).getArrivalTime() + " " + processList.get(i).getServiceTime());
         }
-
+*/
         return processList;
 
     }

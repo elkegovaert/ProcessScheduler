@@ -60,8 +60,8 @@ public class LineChart extends JFrame {
     	        totWaitTime = totWaitTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getWaitTime();
     		
     		}
-    		System.out.println(totServiceTime/processesPerPercentiel);
-    		System.out.println(totWaitTime/processesPerPercentiel);
+    		//System.out.println(totServiceTime/processesPerPercentiel);
+    		//System.out.println(totWaitTime/processesPerPercentiel);
     		series.add(totServiceTime/processesPerPercentiel, totWaitTime/processesPerPercentiel);
     	}
 
