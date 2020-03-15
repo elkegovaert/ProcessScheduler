@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.Clock;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 
 
 public class Main {
@@ -23,30 +24,11 @@ public class Main {
         //xmlfiles inlezen
         ReadXMLFile readXMLFile = new ReadXMLFile();
         List<Process> processlist1 = readXMLFile.leesProcessen("processen10000.xml");
-        System.out.println("Lijst met " + processlist1.size() + " processen gecreeerd.");
-
         List<Process> processlist2 = readXMLFile.leesProcessen("processen20000.xml");
-        System.out.println("Lijst met " + processlist2.size() + " processen gecreeerd.");
-
         List<Process> processlist5 = readXMLFile.leesProcessen("processen50000.xml");
-        System.out.println("Lijst met " + processlist5.size() + " processen gecreeerd.");
-
-        List<Process> processlisttest = readXMLFile.leesProcessen("processentmp.xml");
-        System.out.println("Lijst met " + processlisttest.size() + " processen gecreeerd.");
 
         //sorteer op service time
         //Collections.sort(processlist1, new SortByServiceTime());
-        //Collections.sort(processlist2, new SortByServiceTime());
-        //Collections.sort(processlist5, new SortByServiceTime());
-        Collections.sort(processlisttest, new SortByServiceTime());
-        
-        
-        //Test of goed gesorteerd is geweest
-        /*
-        for(int i=0; i<processlist1.size();i++) {
-        	System.out.println(processlist1.get(i));
-        }
-        */
         
         //FCFS
         /*
@@ -77,9 +59,8 @@ public class Main {
         plotTimeWait(processlist5FCFS);
         */
 
-        /*
         //SJF
-        ShortestJobFirst sjf = new ShortestJobFirst();
+        /*ShortestJobFirst sjf = new ShortestJobFirst();
 
         List<Process> processlist1SJF= sjf.SJF(processlist1);
         List<Process> processlist2SJF=sjf.SJF(processlist2);
@@ -108,8 +89,8 @@ public class Main {
 
 
 		List<Process> processlist1SRT= srt.SRT(processlist1);
-		List<Process> processlist2SRT=srt.SRT(processlist2);
-		List<Process> processlist5SRT=srt.SRT(processlist5);
+		/*List<Process> processlist2SRT=srt.SRT(processlist2);
+		List<Process> processlist5SRT=srt.SRT(processlist5);*/
 
 
         for(int i = 0; i < 20;i++){
@@ -121,12 +102,34 @@ public class Main {
         plotGenTAT(processlist1SRT);
         plotTimeWait(processlist1SRT);
 
-        plotGenTAT(processlist2SRT);
+        /*plotGenTAT(processlist2SRT);
         plotTimeWait(processlist2SRT);
 
         plotGenTAT(processlist5SRT);
-        plotTimeWait(processlist5SRT);
+        plotTimeWait(processlist5SRT);*/
 
+		//RR
+		/*RoundRobin rr2 = new RoundRobin(10);
+		List<Process> processlist1RR2 = rr2.schedule(processlist1);
+		List<Process> processlist2RR2= rr2.schedule(processlist2);
+		List<Process> processlist5RR2= rr2.schedule(processlist5);
+
+		double totgenTAT = 0;
+		for(int i=0; i<processlist1RR2.size();i++) {
+			totgenTAT = processlist1RR2.get(i).getNormTAT()+totgenTAT;
+			System.out.println(processlist1RR2.get(i));
+		}
+
+		//Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
+		// en genom. TAT in functie van T service
+		plotGenTAT(processlist1RR2);
+		plotTimeWait(processlist1RR2);
+
+		plotGenTAT(processlist2RR2);
+		plotTimeWait(processlist2RR2);
+
+		plotGenTAT(processlist5RR2);
+		plotTimeWait(processlist5RR2);*/
 
     }
     
@@ -144,49 +147,5 @@ public class Main {
         });
     	
     }
- 
-    //First Come First Served Scheduling Algorithme
-    static public List<Process> FCFS(List<Process> processList) {
-    	
-    	//Process 1 wordt steeds als eerste uitgevoerd
-    	Process process1 = processList.get(0);
-    	int serviceTime1=process1.getServiceTime();
-    	int endTime1=process1.getServiceTime()+process1.getArrivalTime();
-    	process1.setEndTime(endTime1);
-    	process1.setWaitTime(0);
-    	process1.setStartTime(process1.getArrivalTime());
-    	process1.setTAT(0+serviceTime1);
-    	process1.setNormTAT(process1.getTAT()/serviceTime1);
-    	
-    	for(int i=1;i<processList.size();i++) {
-    		
-    		Process processVorige = processList.get(i-1);
-    		Process process=processList.get(i);
-    		int arrivalTime = process.getArrivalTime();
-    		int serviceTime = process.getServiceTime();
-    		int waitTime = processVorige.getEndTime()-arrivalTime;
-    		if(waitTime<0)waitTime=0;
-    		int startTime;
-    		if(processVorige.getEndTime()<arrivalTime) {
-    			startTime=arrivalTime;
-    		}
-    		else {
-    			startTime=processVorige.getEndTime();
-    		}
-    		int endTime = startTime+serviceTime;
-    		int TAT = serviceTime + waitTime;
-    		double normTAT = (double)TAT/(double)serviceTime;
-    		
-    		process.setStartTime(startTime);
-    		process.setEndTime(endTime);
-    		process.setWaitTime(waitTime);
-    		process.setTAT(TAT);
-    		process.setNormTAT(normTAT);
-    		
-    	}
-    	
-    	return processList;
-    }
-    
     
 }
