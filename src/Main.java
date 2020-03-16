@@ -88,6 +88,7 @@ public class Main {
         }
 */
 
+        //HRRN
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
         // en genom. TAT in functie van T sevrice
@@ -96,25 +97,25 @@ public class Main {
         Process process = new Process();
         dummy.add(process);
 
-        //plotGenTAT(processlist2SRT);
+        plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, dummy, dummy, dummy);
         plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, dummy, dummy, dummy);
 
-        //plotGenTAT(processlist2SRT);
+        plotNormTAT(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, dummy, dummy, dummy);
         plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, dummy, dummy, dummy);
 
-        //plotGenTAT(processlist5SRT);
+        plotNormTAT(processlist1FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, dummy, dummy, dummy);
         plotTimeWait(processlist1FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, dummy, dummy, dummy);
 
 
     }
     
     
-    static public void plotGenTAT(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
+    static public void plotNormTAT(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
 
         EventQueue.invokeLater(() -> {
 
             LineChart lineChart = new LineChart();
-            lineChart.initUI(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
+            lineChart.initUINormTAT(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
             lineChart.setVisible(true);
         });
 
@@ -125,7 +126,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
 
         	LineChart lineChart = new LineChart();
-            lineChart.initUI(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
+            lineChart.initUIWaitTime(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
         	lineChart.setVisible(true);
         });
     	
