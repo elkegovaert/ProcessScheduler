@@ -22,15 +22,12 @@ import java.util.List;
 
 public class LineChart extends JFrame {
 
-    public LineChart(List<Process> processes) {
+    public LineChart() {}
 
-        initUI(processes);
-    }
+    public void initUI(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
 
-    private void initUI(List<Process> processes) {
-
-        XYDataset dataset = createDataset(processes);
-        JFreeChart chart = createChart(dataset);
+        XYDataset datasetWaitTime = createDatasetWaitTime(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
+        JFreeChart chart = createChart(datasetWaitTime);
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -38,38 +35,73 @@ public class LineChart extends JFrame {
         add(chartPanel);
 
         pack();
-        setTitle("Scheduling ALgorithmes");
+        setTitle("Scheduling Algorithmes");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private XYDataset createDataset(List<Process> processes) {
+    private XYDataset createDatasetWaitTime(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
 
-        XYSeries series = new XYSeries("First Come First Served");
-
-        
-    	Collections.sort(processes, new SortByServiceTime());
-    	int processesPerPercentiel = processes.size()/100;
-    	
-    	
-    	for(int percentielNummer = 1; percentielNummer != 100; percentielNummer++) {
-    		int totWaitTime=0;
-    		int totServiceTime=0;
-    		for(int i=0; i<processesPerPercentiel; i++) {
-    	        totServiceTime = totServiceTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getServiceTime();
-    	        totWaitTime = totWaitTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getWaitTime();
-    		
-    		}
-    		//System.out.println(totServiceTime/processesPerPercentiel);
-    		//System.out.println(totWaitTime/processesPerPercentiel);
-    		series.add(totServiceTime/processesPerPercentiel, totWaitTime/processesPerPercentiel);
-    	}
 
         XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
+
+
+        XYSeries seriesFCFS = new XYSeries("First Come First Served");
+        XYSeries seriesRR2 = new XYSeries("Round Robin q=2");
+        XYSeries seriesRR4 = new XYSeries("Round Robin q=4");
+        XYSeries seriesRR8 = new XYSeries("Round Robin q=8");
+        XYSeries seriesSJF = new XYSeries("Shortest Job First");
+        XYSeries seriesSRT = new XYSeries("Shortest Remaining Time");
+        XYSeries seriesHRRN = new XYSeries("Highest Response Ratio Next");
+        XYSeries seriesMLFB1 = new XYSeries("Multi Level Feedback q=??");
+        XYSeries seriesMLFB2 = new XYSeries("Multi Level Feedback q=??");
+
+        //uncomment the algorithmes that you want to see on the graph
+        seriesFCFS = calculateDatasetWaitTime(seriesFCFS, firstComeFirstServed);
+        seriesRR2 = calculateDatasetWaitTime(seriesRR2, roundRobinq2);
+        seriesRR4 = calculateDatasetWaitTime(seriesRR4, roundRobinq4);
+        seriesRR8 = calculateDatasetWaitTime(seriesRR8, roundRobinq8);
+        seriesSJF = calculateDatasetWaitTime(seriesSJF, shortestJobFirst);
+        seriesSRT = calculateDatasetWaitTime(seriesSRT, shortestRemainingTime);
+        //seriesHRRN = calculateDatasetWaitTime(seriesHRRN, highestResponseRatioNext);
+        //seriesMLFB1 = calculateDatasetWaitTime(seriesMLFB1, multiLevelFeedBackq1);
+        //seriesMLFB2 = calculateDatasetWaitTime(seriesMLFB2, multiLevelFeedBackq2);
+
+        dataset.addSeries(seriesFCFS);
+        dataset.addSeries(seriesRR2);
+        dataset.addSeries(seriesRR4);
+        dataset.addSeries(seriesRR8);
+        dataset.addSeries(seriesSJF);
+        dataset.addSeries(seriesSRT);
+        dataset.addSeries(seriesHRRN);
+        dataset.addSeries(seriesMLFB1);
+        dataset.addSeries(seriesMLFB2);
 
         return dataset;
     }
+
+    private XYSeries calculateDatasetWaitTime(XYSeries series, List<Process> processes){
+
+        Collections.sort(processes, new SortByServiceTime());
+        int processesPerPercentiel = processes.size()/100;
+
+
+        for(int percentielNummer = 1; percentielNummer != 100; percentielNummer++) {
+            int totWaitTime=0;
+            int totServiceTime=0;
+            for(int i=0; i<processesPerPercentiel; i++) {
+                totServiceTime = totServiceTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getServiceTime();
+                totWaitTime = totWaitTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getWaitTime();
+
+            }
+            //System.out.println(totServiceTime/processesPerPercentiel);
+            //System.out.println(totWaitTime/processesPerPercentiel);
+            series.add(totServiceTime/processesPerPercentiel, totWaitTime/processesPerPercentiel);
+        }
+
+        return series;
+    }
+
 
     private JFreeChart createChart(XYDataset dataset) {
 
@@ -101,7 +133,7 @@ public class LineChart extends JFrame {
 
         //chart.getLegend().setFrame(BlockBorder.NONE);
 
-        chart.setTitle(new TextTitle("First Come First Served",
+        chart.setTitle(new TextTitle("Scheduling Algorithmes",
                         new Font("Serif", java.awt.Font.BOLD, 18)
                 )
         );

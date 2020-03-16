@@ -14,6 +14,7 @@ import java.awt.EventQueue;
 //test voor git werkt het?
 import java.io.IOException;
 import java.time.Clock;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
@@ -21,6 +22,7 @@ import java.util.Queue;
 
 public class Main {
     public static void main(String argv[]) throws ParserConfigurationException, SAXException, IOException {
+
         //xmlfiles inlezen
         ReadXMLFile readXMLFile = new ReadXMLFile();
         List<Process> processlist1 = readXMLFile.leesProcessen("processen10000.xml");
@@ -29,121 +31,102 @@ public class Main {
 
         //sorteer op service time
         //Collections.sort(processlist1, new SortByServiceTime());
-        
+
+
+        //Alle algorithmes uitvoeren
+
         //FCFS
-        /*
-        List<Process> processlist1FCFS=FCFS(processlist1);
-        List<Process> processlist2FCFS=FCFS(processlist2);
-        List<Process> processlist5FCFS=FCFS(processlist5);
-        
+
+        FirstComeFirstServed fcfs = new FirstComeFirstServed();
+
+        List<Process> processlist1FCFS=fcfs.FCFS(processlist1);
+        List<Process> processlist2FCFS=fcfs.FCFS(processlist2);
+        List<Process> processlist5FCFS=fcfs.FCFS(processlist5);
+
+
+        //RR
+        RoundRobin rr2 = new RoundRobin(2);
+        List<Process> processlist1RR2 = rr2.schedule(processlist1);
+        List<Process> processlist2RR2= rr2.schedule(processlist2);
+        List<Process> processlist5RR2= rr2.schedule(processlist5);
+
+        RoundRobin rr4 = new RoundRobin(4);
+        List<Process> processlist1RR4 = rr4.schedule(processlist1);
+        List<Process> processlist2RR4= rr4.schedule(processlist2);
+        List<Process> processlist5RR4= rr4.schedule(processlist5);
+
+        RoundRobin rr8 = new RoundRobin(8);
+        List<Process> processlist1RR8 = rr8.schedule(processlist1);
+        List<Process> processlist2RR8 = rr8.schedule(processlist2);
+        List<Process> processlist5RR8 = rr8.schedule(processlist5);
+/*
         double totgenTAT = 0;
-        
-        for(int i=0; i<processlist1FCFS.size();i++) {
-        	totgenTAT = processlist1FCFS.get(i).getNormTAT()+totgenTAT;
-        	System.out.println(processlist1FCFS.get(i));
+        for(int i=0; i<processlist1RR2.size();i++) {
+            totgenTAT = processlist1RR2.get(i).getNormTAT()+totgenTAT;
+            System.out.println(processlist1RR2.get(i));
         }
-        
-        System.out.println(totgenTAT/processlist1FCFS.size());
-        
-        
-        
-        //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
-        // en genom. TAT in functie van T sevrice
-        plotGenTAT(processlist1FCFS);
-        plotTimeWait(processlist1FCFS);
-        
-        plotGenTAT(processlist2FCFS);
-        plotTimeWait(processlist2FCFS);
-        
-        plotGenTAT(processlist5FCFS);
-        plotTimeWait(processlist5FCFS);
-        */
+ */
 
         //SJF
-        /*ShortestJobFirst sjf = new ShortestJobFirst();
+        ShortestJobFirst sjf = new ShortestJobFirst();
 
         List<Process> processlist1SJF= sjf.SJF(processlist1);
         List<Process> processlist2SJF=sjf.SJF(processlist2);
         List<Process> processlist5SJF=sjf.SJF(processlist5);
 
-/*
-        for(int i = 0; i < 20;i++){
-            System.out.println(processlist1SJF.get(i));
-        }
-*//*
-        //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
-        // en genom. TAT in functie van T sevrice
-        plotGenTAT(processlist1SJF);
-        plotTimeWait(processlist1SJF);
-
-        plotGenTAT(processlist2SJF);
-        plotTimeWait(processlist2SJF);
-
-        plotGenTAT(processlist5SJF);
-        plotTimeWait(processlist5SJF);
-
-        */
 
 		//SRT
 		ShortestRemainingTime srt = new ShortestRemainingTime();
 
-
 		List<Process> processlist1SRT= srt.SRT(processlist1);
-		/*List<Process> processlist2SRT=srt.SRT(processlist2);
-		List<Process> processlist5SRT=srt.SRT(processlist5);*/
+		List<Process> processlist2SRT=srt.SRT(processlist2);
+		List<Process> processlist5SRT=srt.SRT(processlist5);
 
-
+/*
         for(int i = 0; i < 20;i++){
             System.out.println(processlist1SRT.get(i));
         }
+*/
+
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
         // en genom. TAT in functie van T sevrice
-        plotGenTAT(processlist1SRT);
-        plotTimeWait(processlist1SRT);
 
-        /*plotGenTAT(processlist2SRT);
-        plotTimeWait(processlist2SRT);
+        List<Process> dummy = new ArrayList<Process>();
+        Process process = new Process();
+        dummy.add(process);
 
-        plotGenTAT(processlist5SRT);
-        plotTimeWait(processlist5SRT);*/
+        //plotGenTAT(processlist2SRT);
+        plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, dummy, dummy, dummy);
 
-		//RR
-		/*RoundRobin rr2 = new RoundRobin(10);
-		List<Process> processlist1RR2 = rr2.schedule(processlist1);
-		List<Process> processlist2RR2= rr2.schedule(processlist2);
-		List<Process> processlist5RR2= rr2.schedule(processlist5);
+        //plotGenTAT(processlist2SRT);
+        plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, dummy, dummy, dummy);
 
-		double totgenTAT = 0;
-		for(int i=0; i<processlist1RR2.size();i++) {
-			totgenTAT = processlist1RR2.get(i).getNormTAT()+totgenTAT;
-			System.out.println(processlist1RR2.get(i));
-		}
+        //plotGenTAT(processlist5SRT);
+        plotTimeWait(processlist1FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, dummy, dummy, dummy);
 
-		//Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
-		// en genom. TAT in functie van T service
-		plotGenTAT(processlist1RR2);
-		plotTimeWait(processlist1RR2);
-
-		plotGenTAT(processlist2RR2);
-		plotTimeWait(processlist2RR2);
-
-		plotGenTAT(processlist5RR2);
-		plotTimeWait(processlist5RR2);*/
 
     }
     
     
-    static public void plotGenTAT(List<Process> processList) {
-    	
+    static public void plotGenTAT(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
+
+        EventQueue.invokeLater(() -> {
+
+            LineChart lineChart = new LineChart();
+            lineChart.initUI(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
+            lineChart.setVisible(true);
+        });
+
     }
     
-    static public void plotTimeWait(List<Process> processList) {
+    static public void plotTimeWait(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
     	
         EventQueue.invokeLater(() -> {
 
-        	LineChart ex = new LineChart(processList);
-            ex.setVisible(true);
+        	LineChart lineChart = new LineChart();
+            lineChart.initUI(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
+        	lineChart.setVisible(true);
         });
     	
     }
