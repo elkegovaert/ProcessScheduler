@@ -30,7 +30,7 @@ public class Process implements Comparable {
         this.id = id;
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
-        remainingServiceTime = serviceTime;
+        this.remainingServiceTime = serviceTime;
     }
 
     public int compareTo(Object o) {
@@ -41,12 +41,13 @@ public class Process implements Comparable {
     //Override toString
     public String toString() {
     	return "id: "+id+" ArrivalTime: "+arrivalTime+" ServiceTime: "+serviceTime+" Remaining Service Time: "+remainingServiceTime+" StartTime: "+startTime+" EndTime: "+endTime+" TAT: "+TAT+" Genormaliseerde TAT: "+normTAT+" WaitTime: "+waitTime;
+        //return "ArrivalTime: " + arrivalTime + "; Starttime: " + startTime + "; Endtime: " + endTime + "\n";
     }
 
     public void calculateStats() {
-        this.waitTime = endTime - arrivalTime - serviceTime;
-        this.TAT = waitTime + serviceTime;
-        this.normTAT = (double) this.TAT / serviceTime;
+        this.waitTime = this.endTime - this.arrivalTime - this.serviceTime;
+        this.TAT = this.waitTime + this.serviceTime;
+        this.normTAT = (double) this.TAT / this.serviceTime;
     }
 
 

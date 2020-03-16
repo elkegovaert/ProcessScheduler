@@ -114,9 +114,9 @@ public class LineChart extends JFrame {
 
         //uncomment the algorithmes that you want to see on the graph
         seriesFCFS = calculateDatasetNormTAT(seriesFCFS, firstComeFirstServed);
-        //seriesRR2 = calculateDatasetNormTAT(seriesRR2, roundRobinq2);
-        //seriesRR4 = calculateDatasetNormTAT(seriesRR4, roundRobinq4);
-        //seriesRR8 = calculateDatasetNormTAT(seriesRR8, roundRobinq8);
+        seriesRR2 = calculateDatasetNormTAT(seriesRR2, roundRobinq2);
+        seriesRR4 = calculateDatasetNormTAT(seriesRR4, roundRobinq4);
+        seriesRR8 = calculateDatasetNormTAT(seriesRR8, roundRobinq8);
         seriesSJF = calculateDatasetNormTAT(seriesSJF, shortestJobFirst);
         seriesSRT = calculateDatasetNormTAT(seriesSRT, shortestRemainingTime);
         //seriesHRRN = calculateDatasetGenTAT(seriesHRRN, highestResponseRatioNext);
@@ -124,9 +124,9 @@ public class LineChart extends JFrame {
         //seriesMLFB2 = calculateDatasetGenTAT(seriesMLFB2, multiLevelFeedBackq2);
 
         dataset.addSeries(seriesFCFS);
-        //dataset.addSeries(seriesRR2);
-        //dataset.addSeries(seriesRR4);
-        //dataset.addSeries(seriesRR8);
+        dataset.addSeries(seriesRR2);
+        dataset.addSeries(seriesRR4);
+        dataset.addSeries(seriesRR8);
         dataset.addSeries(seriesSJF);
         dataset.addSeries(seriesSRT);
         //dataset.addSeries(seriesHRRN);
