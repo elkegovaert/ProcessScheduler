@@ -89,6 +89,12 @@ public class Main {
         }*/
 
         //HRRN
+        HighestResponseRatioNext hrrn = new HighestResponseRatioNext();
+
+        List<Process> processlist1HRRN= hrrn.HRRN(processlist1);
+        List<Process> processlist2HRRN=hrrn.HRRN(processlist2);
+        List<Process> processlist5HRRN=hrrn.HRRN(processlist5);
+
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
         // en genom. TAT in functie van T sevrice
@@ -97,14 +103,14 @@ public class Main {
         Process process = new Process();
         dummy.add(process);
 
-        plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, dummy, dummy, dummy);
-        plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, dummy, dummy, dummy);
+        plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, dummy, dummy);
+        plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, dummy, dummy);
 
-        plotNormTAT(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, dummy, dummy, dummy);
-        plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, dummy, dummy, dummy);
+        plotNormTAT(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, dummy, dummy);
+        plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, dummy, dummy);
 
-        plotNormTAT(processlist1FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, dummy, dummy, dummy);
-        plotTimeWait(processlist1FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, dummy, dummy, dummy);
+        plotNormTAT(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, dummy, dummy);
+        plotTimeWait(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, dummy, dummy);
 
 
     }

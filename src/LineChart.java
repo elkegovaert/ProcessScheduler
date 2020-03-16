@@ -1,10 +1,14 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -26,24 +30,39 @@ public class LineChart extends JFrame {
 
     public void initUIWaitTime(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
 
+        int numberOfProcesses = firstComeFirstServed.size();
+
         XYDataset datasetWaitTime = createDatasetWaitTime(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
-        JFreeChart chart = createChartWaitTime(datasetWaitTime);
+        JFreeChart chart = createChartWaitTime(datasetWaitTime, "Scheduling Algorithmes Simulated With "+numberOfProcesses+" Processes");
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
         add(chartPanel);
 
+
         pack();
-        setTitle("Scheduling Algorithmes");
+        setTitle("Scheduling Algorithmes For Simulation With "+numberOfProcesses);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void initUINormTAT(List<Process> firstComeFirstServed, List<Process> roundRobinq2, List<Process> roundRobinq4, List<Process> roundRobinq8, List<Process> shortestJobFirst, List<Process> shortestRemainingTime, List<Process> highestResponseRatioNext, List<Process> multiLevelFeedBackq1, List<Process> multiLevelFeedBackq2) {
+        int numberOfProcesses = firstComeFirstServed.size();
+
 
         XYDataset datasetNormTAT = createDatasetNormTAT(firstComeFirstServed, roundRobinq2, roundRobinq4, roundRobinq8, shortestJobFirst, shortestRemainingTime, highestResponseRatioNext, multiLevelFeedBackq1, multiLevelFeedBackq2);
-        JFreeChart chart = createChartGenTAT(datasetNormTAT);
+        JFreeChart chart = createChartGenTAT(datasetNormTAT, "Scheduling Algorithmes Simulated With "+numberOfProcesses+" Processes");
+
+
+        XYPlot xyPlot = (XYPlot) chart.getPlot();
+
+        NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
+        domain.setRange(0.00, 200.00);
+
+        NumberAxis range = (NumberAxis) xyPlot.getRangeAxis();
+        range.setRange(0.0, 100.0);
+
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -51,7 +70,7 @@ public class LineChart extends JFrame {
         add(chartPanel);
 
         pack();
-        setTitle("Scheduling Algorithmes");
+        setTitle("Scheduling Algorithmes For Simulation With "+numberOfProcesses);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -79,7 +98,7 @@ public class LineChart extends JFrame {
         seriesRR8 = calculateDatasetWaitTime(seriesRR8, roundRobinq8);
         seriesSJF = calculateDatasetWaitTime(seriesSJF, shortestJobFirst);
         seriesSRT = calculateDatasetWaitTime(seriesSRT, shortestRemainingTime);
-        //seriesHRRN = calculateDatasetWaitTime(seriesHRRN, highestResponseRatioNext);
+        seriesHRRN = calculateDatasetWaitTime(seriesHRRN, highestResponseRatioNext);
         //seriesMLFB1 = calculateDatasetWaitTime(seriesMLFB1, multiLevelFeedBackq1);
         //seriesMLFB2 = calculateDatasetWaitTime(seriesMLFB2, multiLevelFeedBackq2);
 
@@ -89,7 +108,7 @@ public class LineChart extends JFrame {
         dataset.addSeries(seriesRR8);
         dataset.addSeries(seriesSJF);
         dataset.addSeries(seriesSRT);
-        //dataset.addSeries(seriesHRRN);
+        dataset.addSeries(seriesHRRN);
         //dataset.addSeries(seriesMLFB1);
         //dataset.addSeries(seriesMLFB2);
 
@@ -119,9 +138,9 @@ public class LineChart extends JFrame {
         seriesRR8 = calculateDatasetNormTAT(seriesRR8, roundRobinq8);
         seriesSJF = calculateDatasetNormTAT(seriesSJF, shortestJobFirst);
         seriesSRT = calculateDatasetNormTAT(seriesSRT, shortestRemainingTime);
-        //seriesHRRN = calculateDatasetGenTAT(seriesHRRN, highestResponseRatioNext);
-        //seriesMLFB1 = calculateDatasetGenTAT(seriesMLFB1, multiLevelFeedBackq1);
-        //seriesMLFB2 = calculateDatasetGenTAT(seriesMLFB2, multiLevelFeedBackq2);
+        seriesHRRN = calculateDatasetNormTAT(seriesHRRN, highestResponseRatioNext);
+        //seriesMLFB1 = calculateDatasetNormTAT(seriesMLFB1, multiLevelFeedBackq1);
+        //seriesMLFB2 = calculateDatasetNormTAT(seriesMLFB2, multiLevelFeedBackq2);
 
         dataset.addSeries(seriesFCFS);
         dataset.addSeries(seriesRR2);
@@ -129,7 +148,7 @@ public class LineChart extends JFrame {
         dataset.addSeries(seriesRR8);
         dataset.addSeries(seriesSJF);
         dataset.addSeries(seriesSRT);
-        //dataset.addSeries(seriesHRRN);
+        dataset.addSeries(seriesHRRN);
         //dataset.addSeries(seriesMLFB1);
         //dataset.addSeries(seriesMLFB2);
 
@@ -172,19 +191,17 @@ public class LineChart extends JFrame {
                 totGenTAT = totGenTAT + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getNormTAT();
 
             }
-            //System.out.println(totServiceTime/processesPerPercentiel);
-            //System.out.println(totWaitTime/processesPerPercentiel);
+
             series.add(totServiceTime/processesPerPercentiel, totGenTAT/processesPerPercentiel);
         }
 
         return series;
     }
 
-
-    private JFreeChart createChartWaitTime(XYDataset dataset) {
+    private JFreeChart createChartWaitTime(XYDataset dataset, String title) {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
-                "Scheduling Algorithmes",
+                title,
                 "Service Time",
                 "Wait Time",
                 dataset,
@@ -211,7 +228,7 @@ public class LineChart extends JFrame {
 
         //chart.getLegend().setFrame(BlockBorder.NONE);
 
-        chart.setTitle(new TextTitle("Scheduling Algorithmes",
+        chart.setTitle(new TextTitle(title,
                         new Font("Serif", java.awt.Font.BOLD, 18)
                 )
         );
@@ -219,10 +236,10 @@ public class LineChart extends JFrame {
         return chart;
     }
 
-    private JFreeChart createChartGenTAT(XYDataset dataset) {
+    private JFreeChart createChartGenTAT(XYDataset dataset, String title) {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
-                "Scheduling Algorithmes",
+                title,
                 "Service Time",
                 "Normalized Turn Around Time",
                 dataset,
@@ -233,6 +250,11 @@ public class LineChart extends JFrame {
         );
 
         XYPlot plot = chart.getXYPlot();
+
+        NumberAxis domainAxis = new NumberAxis("Service Time");
+        NumberAxis rangeAxis = new LogarithmicAxis("Normalized Turn Around Time (Log scale)");
+        plot.setDomainAxis(domainAxis);
+        plot.setRangeAxis(rangeAxis);
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.RED);
@@ -247,9 +269,8 @@ public class LineChart extends JFrame {
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.BLACK);
 
-        //chart.getLegend().setFrame(BlockBorder.NONE);
 
-        chart.setTitle(new TextTitle("Scheduling Algorithmes",
+        chart.setTitle(new TextTitle(title,
                         new Font("Serif", java.awt.Font.BOLD, 18)
                 )
         );

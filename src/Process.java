@@ -8,10 +8,12 @@ public class Process implements Comparable {
     private int TAT;//serviceTime+waitTime
     private double normTAT;//(serviceTime+waitTime)/serviceTime
     private int waitTime;
+    private double responseRatio; //Response Ratio
 
     //constructors
     public Process() {
         remainingServiceTime = -1;
+        responseRatio = 1;
     }
 
     public Process(Process p) {
@@ -24,13 +26,15 @@ public class Process implements Comparable {
         normTAT = p.normTAT;
         waitTime = p.waitTime;
         remainingServiceTime = p.remainingServiceTime;
+        responseRatio = p.responseRatio;
     }
 
     public Process(int id, int arrivalTime, int serviceTime) {
         this.id = id;
         this.arrivalTime = arrivalTime;
         this.serviceTime = serviceTime;
-        this.remainingServiceTime = serviceTime;
+        remainingServiceTime = serviceTime;
+        responseRatio = (waitTime+serviceTime)/serviceTime;
     }
 
     public int compareTo(Object o) {
@@ -40,16 +44,18 @@ public class Process implements Comparable {
     
     //Override toString
     public String toString() {
-    	return "id: "+id+" ArrivalTime: "+arrivalTime+" ServiceTime: "+serviceTime+" Remaining Service Time: "+remainingServiceTime+" StartTime: "+startTime+" EndTime: "+endTime+" TAT: "+TAT+" Genormaliseerde TAT: "+normTAT+" WaitTime: "+waitTime;
-        //return "ArrivalTime: " + arrivalTime + "; Starttime: " + startTime + "; Endtime: " + endTime + "\n";
+    	return "id: "+id+" ArrivalTime: "+arrivalTime+" ServiceTime: "+serviceTime+" Remaining Service Time: "+remainingServiceTime+" StartTime: "+startTime+" EndTime: "+endTime+" TAT: "+TAT+" Genormaliseerde TAT: "+normTAT+" WaitTime: "+waitTime+" R: "+responseRatio;
     }
 
     public void calculateStats() {
-        this.waitTime = this.endTime - this.arrivalTime - this.serviceTime;
-        this.TAT = this.waitTime + this.serviceTime;
-        this.normTAT = (double) this.TAT / this.serviceTime;
+        this.waitTime = endTime - arrivalTime - serviceTime;
+        this.TAT = waitTime + serviceTime;
+        this.normTAT = (double) this.TAT / serviceTime;
     }
 
+    public void calculateResponseRatio() {
+        responseRatio = ((double)waitTime+(double)serviceTime)/(double)serviceTime;
+    }
 
 
     //getters en setters
@@ -120,4 +126,14 @@ public class Process implements Comparable {
     public void setRemainingServiceTime(int remainingServiceTime) {
         this.remainingServiceTime = remainingServiceTime;
     }
+
+
+    public double getResponseRatio() {
+        return responseRatio;
+    }
+
+    public void setResponseRatio(double responseRatio) {
+        this.responseRatio = responseRatio;
+    }
+
 }

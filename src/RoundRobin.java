@@ -5,7 +5,7 @@ public class RoundRobin {
     public RoundRobin(int q) { this.q = q; }
 
     public List<Process> schedule(List<Process> procs) throws NullPointerException {
-        /* Het mijne
+        // Het mijne
         //kopietje om gegevens niet te wijzigen
         Queue<Process> processen = new LinkedList<>();
 
@@ -64,10 +64,10 @@ public class RoundRobin {
         }
 
         return resultaat;
-         */
+
 
         //dropbox
-
+/*
         //kopietje om gegevens niet te wijzigen
         Queue<Process> processen = new LinkedList<>();
         for (Process p : procs) {
@@ -142,6 +142,9 @@ public class RoundRobin {
         }
 
         return resultaat;
+
+
+ */
     }
 
 }

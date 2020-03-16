@@ -38,9 +38,7 @@ public class FirstComeFirstServed {
 
             process.setStartTime(startTime);
             process.setEndTime(endTime);
-            process.setWaitTime(waitTime);
-            process.setTAT(TAT);
-            process.setNormTAT(normTAT);
+            process.calculateStats();
 
         }
 
