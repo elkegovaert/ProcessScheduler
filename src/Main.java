@@ -4,6 +4,7 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.statistics.HistogramDataset;
 
+import javax.swing.plaf.multi.MultiInternalFrameUI;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -94,6 +95,18 @@ public class Main {
         List<Process> processlist1HRRN= hrrn.HRRN(processlist1);
         List<Process> processlist2HRRN=hrrn.HRRN(processlist2);
         List<Process> processlist5HRRN=hrrn.HRRN(processlist5);
+
+        //MLFB
+        MultiLevelFeedBack mlfb = new MultiLevelFeedBack();
+        //lineair
+        /*List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "lineair");
+        List<Process> processlist2MLFBL = mlfb.schedule(processlist2, "lineair");
+        List<Process> processlist5MLFBL = mlfb.schedule(processlist5, "lineair");
+
+        //stijgend
+        List<Process> processlist1MLFBS = mlfb.schedule(processlist1, "niet");
+        List<Process> processlist2MLFBS = mlfb.schedule(processlist2, "niet");
+        List<Process> processlist5MLFBS = mlfb.schedule(processlist5, "niet");*/
 
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
