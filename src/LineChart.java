@@ -58,7 +58,7 @@ public class LineChart extends JFrame {
         XYPlot xyPlot = (XYPlot) chart.getPlot();
 
         NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
-        domain.setRange(0.00, 200.00);
+        domain.setRange(0.00, 450.00);
 
         NumberAxis range = (NumberAxis) xyPlot.getRangeAxis();
         range.setRange(0.0, 100.0);
@@ -202,8 +202,8 @@ public class LineChart extends JFrame {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 title,
-                "Service Time",
-                "Wait Time",
+                "Service Time [10ms]",
+                "Wait Time [10ms]",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
@@ -240,8 +240,8 @@ public class LineChart extends JFrame {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 title,
-                "Service Time",
-                "Normalized Turn Around Time",
+                "Service Time [10ms]",
+                "Normalized Turn Around Time [10ms]",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,

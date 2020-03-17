@@ -8,8 +8,6 @@ public class ShortestRemainingTime {
 
     public List<Process> SRT(List<Process> processList) {
 
-
-
         //Drop box
         Queue<Process> toDoJobs = new LinkedList<>();
 
