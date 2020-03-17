@@ -35,7 +35,7 @@ public class MultiLevelFeedBack {
         List<Process> resultaat = new ArrayList<>();
 
         int timer = 0;
-        Process tmp = new Process();
+        Process tmp;
 
         while(!inputQ.isEmpty() || !q1.isEmpty() || !q2.isEmpty() ||!q3.isEmpty() || !q4.isEmpty() || !q5.isEmpty()) {
             if (!inputQ.isEmpty() && q1.isEmpty() && q2.isEmpty() && q3.isEmpty() && q4.isEmpty() && q5.isEmpty()) {
@@ -50,7 +50,7 @@ public class MultiLevelFeedBack {
             }
             if (!q1.isEmpty()) {
                 tmp = q1.poll();
-                if (tmp.getServiceTime() <= timeslice1) {
+                if (tmp.getRemainingServiceTime() <= timeslice1) {
                     timer = timer + timeslice1;
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
@@ -62,7 +62,7 @@ public class MultiLevelFeedBack {
                 }
             } else if (!q2.isEmpty()) {
                 tmp = q2.poll();
-                if (tmp.getServiceTime() <= timeslice2) {
+                if (tmp.getRemainingServiceTime() <= timeslice2) {
                     timer = timer + timeslice2;
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
@@ -74,7 +74,7 @@ public class MultiLevelFeedBack {
                 }
             } else if (!q3.isEmpty()) {
                 tmp = q3.poll();
-                if (tmp.getServiceTime() <= timeslice3) {
+                if (tmp.getRemainingServiceTime() <= timeslice3) {
                     timer = timer + timeslice3;
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
@@ -86,7 +86,7 @@ public class MultiLevelFeedBack {
                 }
             } else if (!q4.isEmpty()) {
                 tmp = q4.poll();
-                if (tmp.getServiceTime() <= timeslice4) {
+                if (tmp.getRemainingServiceTime() <= timeslice4) {
                     timer = timer + timeslice4;
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
@@ -98,7 +98,7 @@ public class MultiLevelFeedBack {
                 }
             } else if (!q5.isEmpty()) {
                 tmp = q5.poll();
-                if (tmp.getServiceTime() <= timeslice5) {
+                if (tmp.getRemainingServiceTime() <= timeslice5) {
                     timer = timer + timeslice5;
                     tmp.setEndTime(timer);
                     tmp.calculateStats();

@@ -88,8 +88,8 @@ public class LineChart extends JFrame {
         XYSeries seriesSJF = new XYSeries("Shortest Job First");
         XYSeries seriesSRT = new XYSeries("Shortest Remaining Time");
         XYSeries seriesHRRN = new XYSeries("Highest Response Ratio Next");
-        XYSeries seriesMLFB1 = new XYSeries("Multi Level Feedback q=??");
-        XYSeries seriesMLFB2 = new XYSeries("Multi Level Feedback q=??");
+        XYSeries seriesMLFB1 = new XYSeries("Multi Level Feedback q=i");
+        XYSeries seriesMLFB2 = new XYSeries("Multi Level Feedback q=2^i");
 
         //uncomment the algorithmes that you want to see on the graph
         seriesFCFS = calculateDatasetWaitTime(seriesFCFS, firstComeFirstServed);
@@ -99,8 +99,8 @@ public class LineChart extends JFrame {
         seriesSJF = calculateDatasetWaitTime(seriesSJF, shortestJobFirst);
         seriesSRT = calculateDatasetWaitTime(seriesSRT, shortestRemainingTime);
         seriesHRRN = calculateDatasetWaitTime(seriesHRRN, highestResponseRatioNext);
-        //seriesMLFB1 = calculateDatasetWaitTime(seriesMLFB1, multiLevelFeedBackq1);
-        //seriesMLFB2 = calculateDatasetWaitTime(seriesMLFB2, multiLevelFeedBackq2);
+        seriesMLFB1 = calculateDatasetWaitTime(seriesMLFB1, multiLevelFeedBackq1);
+        seriesMLFB2 = calculateDatasetWaitTime(seriesMLFB2, multiLevelFeedBackq2);
 
         dataset.addSeries(seriesFCFS);
         dataset.addSeries(seriesRR2);
@@ -109,8 +109,8 @@ public class LineChart extends JFrame {
         dataset.addSeries(seriesSJF);
         dataset.addSeries(seriesSRT);
         dataset.addSeries(seriesHRRN);
-        //dataset.addSeries(seriesMLFB1);
-        //dataset.addSeries(seriesMLFB2);
+        dataset.addSeries(seriesMLFB1);
+        dataset.addSeries(seriesMLFB2);
 
         return dataset;
     }
@@ -128,8 +128,8 @@ public class LineChart extends JFrame {
         XYSeries seriesSJF = new XYSeries("Shortest Job First");
         XYSeries seriesSRT = new XYSeries("Shortest Remaining Time");
         XYSeries seriesHRRN = new XYSeries("Highest Response Ratio Next");
-        XYSeries seriesMLFB1 = new XYSeries("Multi Level Feedback q=??");
-        XYSeries seriesMLFB2 = new XYSeries("Multi Level Feedback q=??");
+        XYSeries seriesMLFB1 = new XYSeries("Multi Level Feedback q=i");
+        XYSeries seriesMLFB2 = new XYSeries("Multi Level Feedback q=2^i");
 
         //uncomment the algorithmes that you want to see on the graph
         seriesFCFS = calculateDatasetNormTAT(seriesFCFS, firstComeFirstServed);
@@ -139,8 +139,8 @@ public class LineChart extends JFrame {
         seriesSJF = calculateDatasetNormTAT(seriesSJF, shortestJobFirst);
         seriesSRT = calculateDatasetNormTAT(seriesSRT, shortestRemainingTime);
         seriesHRRN = calculateDatasetNormTAT(seriesHRRN, highestResponseRatioNext);
-        //seriesMLFB1 = calculateDatasetNormTAT(seriesMLFB1, multiLevelFeedBackq1);
-        //seriesMLFB2 = calculateDatasetNormTAT(seriesMLFB2, multiLevelFeedBackq2);
+        seriesMLFB1 = calculateDatasetNormTAT(seriesMLFB1, multiLevelFeedBackq1);
+        seriesMLFB2 = calculateDatasetNormTAT(seriesMLFB2, multiLevelFeedBackq2);
 
         dataset.addSeries(seriesFCFS);
         dataset.addSeries(seriesRR2);
@@ -149,8 +149,8 @@ public class LineChart extends JFrame {
         dataset.addSeries(seriesSJF);
         dataset.addSeries(seriesSRT);
         dataset.addSeries(seriesHRRN);
-        //dataset.addSeries(seriesMLFB1);
-        //dataset.addSeries(seriesMLFB2);
+        dataset.addSeries(seriesMLFB1);
+        dataset.addSeries(seriesMLFB2);
 
         return dataset;
     }

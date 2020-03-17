@@ -99,31 +99,27 @@ public class Main {
         //MLFB
         MultiLevelFeedBack mlfb = new MultiLevelFeedBack();
         //lineair
-        /*List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "lineair");
+        List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "lineair");
         List<Process> processlist2MLFBL = mlfb.schedule(processlist2, "lineair");
         List<Process> processlist5MLFBL = mlfb.schedule(processlist5, "lineair");
 
         //stijgend
         List<Process> processlist1MLFBS = mlfb.schedule(processlist1, "niet");
         List<Process> processlist2MLFBS = mlfb.schedule(processlist2, "niet");
-        List<Process> processlist5MLFBS = mlfb.schedule(processlist5, "niet");*/
+        List<Process> processlist5MLFBS = mlfb.schedule(processlist5, "niet");
 
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
         // en genom. TAT in functie van T sevrice
 
-        List<Process> dummy = new ArrayList<Process>();
-        Process process = new Process();
-        dummy.add(process);
+        plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, processlist1MLFBL, processlist1MLFBS);
+        plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, processlist1MLFBL, processlist1MLFBS);
 
-        plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, dummy, dummy);
-        plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, dummy, dummy);
+        plotNormTAT(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, processlist2MLFBL, processlist2MLFBS);
+        plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, processlist2MLFBL, processlist2MLFBS);
 
-        plotNormTAT(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, dummy, dummy);
-        plotTimeWait(processlist2FCFS, processlist2RR2, processlist2RR4, processlist2RR8, processlist2SJF, processlist2SRT, processlist2HRRN, dummy, dummy);
-
-        plotNormTAT(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, dummy, dummy);
-        plotTimeWait(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, dummy, dummy);
+        plotNormTAT(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, processlist5MLFBL, processlist5MLFBS);
+        plotTimeWait(processlist5FCFS, processlist5RR2, processlist5RR4, processlist5RR8, processlist5SJF, processlist5SRT, processlist5HRRN, processlist5MLFBL, processlist5MLFBS);
 
 
     }
