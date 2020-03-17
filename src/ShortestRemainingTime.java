@@ -8,13 +8,11 @@ public class ShortestRemainingTime {
 
     public List<Process> SRT(List<Process> processList) {
 
-        //Drop box
         Queue<Process> toDoJobs = new LinkedList<>();
 
         for (int i = 0; i<processList.size(); i++) {
             toDoJobs.add(new Process(processList.get(i)));
         }
-
 
 
         List<Process> doneProcesses = new ArrayList<>();
@@ -87,107 +85,6 @@ public class ShortestRemainingTime {
             }
 
             curentTime++;
-
-
-
-
-
-
-
-
-
-
-/*
-        //hulp que
-        Queue<Process> toDoJobs = new LinkedList<>();
-
-        for (int i=0; i<processList.size(); i++) {
-            toDoJobs.add(new Process(processList.get(i)));
-        }
-
-
-        List<Process> doneJobs = new ArrayList<>();
-        PriorityQueue<Process> incomingJobs = new PriorityQueue<Process>(100,(p1, p2)->p1.getRemainingServiceTime()-p2.getRemainingServiceTime());
-        PriorityQueue<Process> readyJobs = new PriorityQueue<Process>(100,(p1, p2)->p1.getRemainingServiceTime()-p2.getRemainingServiceTime());
-
-
-        Process incomingProcess;
-        Process currentRunningProcess = new Process();
-        boolean processIsRunning = false;
-
-        int currentTime = 0;
-
-
-        while(doneJobs.size()!=processList.size()){
-
-            if(currentTime<1000){
-                System.out.println(currentTime);
-                System.out.println(currentRunningProcess);
-            }
-
-            //check for an incoming job/process
-            while(toDoJobs.peek()!=null&&toDoJobs.peek().getArrivalTime()==currentTime){
-
-                incomingProcess = toDoJobs.poll();
-
-                incomingJobs.add(incomingProcess);
-            }
-
-
-            if(readyJobs.peek()==null&&incomingJobs.peek()!=null){
-                currentRunningProcess = incomingJobs.poll();
-                int remainingTime = currentRunningProcess.getRemainingServiceTime() - 1;
-                currentRunningProcess.setRemainingServiceTime(remainingTime);
-
-                readyJobs.add(currentRunningProcess);
-
-            }
-            else if(readyJobs.peek()!=null&&incomingJobs.peek()==null){
-                currentRunningProcess = readyJobs.poll();
-                int remainingTime = currentRunningProcess.getRemainingServiceTime() - 1;
-                currentRunningProcess.setRemainingServiceTime(remainingTime);
-            }
-            else if(readyJobs.peek()!=null&&incomingJobs.peek()!=null){
-                if(readyJobs.peek().getRemainingServiceTime()<=incomingJobs.peek().getRemainingServiceTime()){
-                    currentRunningProcess = readyJobs.poll();
-                    int remainingTime = currentRunningProcess.getRemainingServiceTime() - 1;
-                    currentRunningProcess.setRemainingServiceTime(remainingTime);
-                   // readyJobs.add(incomingJobs.poll());
-                }
-                else {
-                    currentRunningProcess = incomingJobs.poll();
-                    int remainingTime = currentRunningProcess.getRemainingServiceTime() - 1;
-                    currentRunningProcess.setRemainingServiceTime(remainingTime);
-                }
-            }
-            if(readyJobs.peek()!=null||incomingJobs.peek()!=null){
-                //check if process is done after this time slice
-
-
-                if(currentRunningProcess.getRemainingServiceTime()==0){
-
-                    currentRunningProcess.setEndTime(currentTime+1);
-                    currentRunningProcess.calculateStats();
-
-
-                    doneJobs.add(currentRunningProcess);
-
-                }
-                else if(currentRunningProcess.getRemainingServiceTime()>0){
-
-                    readyJobs.add(currentRunningProcess);
-                }
-            }
-
-
-            currentTime++;
-
-
-        }
-
-        return doneJobs;
-*/
-
         }
 
         //uncoment volgende voor dropbox
