@@ -29,10 +29,7 @@ public class Main {
         List<Process> processlist1 = readXMLFile.leesProcessen("processen10000.xml");
         List<Process> processlist2 = readXMLFile.leesProcessen("processen20000.xml");
         List<Process> processlist5 = readXMLFile.leesProcessen("processen50000.xml");
-
-        //sorteer op service time
-        //Collections.sort(processlist1, new SortByServiceTime());
-
+        List<Process> processlisttest = readXMLFile.leesProcessen("processenles.xml");
 
         //Alle algorithmes uitvoeren
 
@@ -60,13 +57,6 @@ public class Main {
         List<Process> processlist1RR8 = rr8.schedule(processlist1);
         List<Process> processlist2RR8 = rr8.schedule(processlist2);
         List<Process> processlist5RR8 = rr8.schedule(processlist5);
-/*
-        double totgenTAT = 0;
-        for(int i=0; i<processlist1RR2.size();i++) {
-            totgenTAT = processlist1RR2.get(i).getNormTAT()+totgenTAT;
-            System.out.println(processlist1RR2.get(i));
-        }
- */
 
         //SJF
         ShortestJobFirst sjf = new ShortestJobFirst();
@@ -98,6 +88,7 @@ public class Main {
 
         //MLFB
         MultiLevelFeedBack mlfb = new MultiLevelFeedBack();
+
         //lineair
         List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "lineair");
         List<Process> processlist2MLFBL = mlfb.schedule(processlist2, "lineair");

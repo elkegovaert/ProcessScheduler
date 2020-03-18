@@ -34,7 +34,6 @@ public class RoundRobin {
             //als we het in 1 keer kunnen doen
             if (tmp.getRemainingServiceTime() <= q) {
                 timer = timer + tmp.getRemainingServiceTime();
-                //voor de processen die toekomen terwijl het huidige proces draait
                 while (!processen.isEmpty() && processen.peek().getArrivalTime() <= timer) {
                     Process tmp2 = processen.poll();
                     tmp2.setStartTime(timer);
