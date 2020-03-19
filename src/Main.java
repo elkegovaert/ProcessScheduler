@@ -29,7 +29,7 @@ public class Main {
         List<Process> processlist1 = readXMLFile.leesProcessen("processen10000.xml");
         List<Process> processlist2 = readXMLFile.leesProcessen("processen20000.xml");
         List<Process> processlist5 = readXMLFile.leesProcessen("processen50000.xml");
-        List<Process> processlisttest = readXMLFile.leesProcessen("processenles.xml");
+
 
         //Alle algorithmes uitvoeren
 

@@ -14,12 +14,12 @@ public class MultiLevelFeedBack {
             timeslice3 = 10;
             timeslice4 = 10;
             timeslice5 = 10;
-        } else {
-            timeslice1 = 10;
-            timeslice2 = 20;
-            timeslice3 = 40;
-            timeslice4 = 80;
-            timeslice5 = 160;
+        } else {//10,20,40,80,160
+            timeslice1 = 1;
+            timeslice2 = 2;
+            timeslice3 = 4;
+            timeslice4 = 8;
+            timeslice5 = 16;
         }
 
         Queue<Process> inputQ = new LinkedList<>();

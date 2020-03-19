@@ -1,7 +1,12 @@
 import java.util.*;
 
 public class RoundRobin {
+
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
     int q;
+
     public RoundRobin(int q) { this.q = q; }
 
     public List<Process> schedule(List<Process> procs) throws NullPointerException {
@@ -45,6 +50,11 @@ public class RoundRobin {
                 tmp.setNormTAT((double)tmp.getTAT()/tmp.getServiceTime());
                 resultaat.add(tmp);
 
+                //Globale Stats Aanpassen
+                totWaitTime = totWaitTime + tmp.getWaitTime();
+                totTAT = totTAT + tmp.getTAT();
+                totNormTAT = totNormTAT + tmp.getNormTAT();
+
             } else {
                 timer = timer + q;
                 while (!processen.isEmpty() && processen.peek().getArrivalTime() <= timer) {
@@ -56,6 +66,13 @@ public class RoundRobin {
                 queue.add(tmp);
             }
         }
+
+        //Globale stats uitprinten van FCFS
+        int size = procs.size();
+        System.out.println("----------Round Robin with q="+q+" for "+size+" processes"+"----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
         return resultaat;
     }

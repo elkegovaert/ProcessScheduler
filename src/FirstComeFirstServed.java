@@ -2,6 +2,10 @@ import java.util.List;
 
 public class FirstComeFirstServed {
 
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
+
     public FirstComeFirstServed() {}
 
     //First Come First Served Scheduling Algorithme
@@ -16,6 +20,10 @@ public class FirstComeFirstServed {
         process1.setStartTime(process1.getArrivalTime());
         process1.setTAT(0+serviceTime1);
         process1.setNormTAT(process1.getTAT()/serviceTime1);
+
+        //stats aanpassen
+        totTAT = process1.getTAT();
+        totNormTAT = process1.getNormTAT();
 
         for(int i=1;i<processList.size();i++) {
 
@@ -40,7 +48,19 @@ public class FirstComeFirstServed {
             process.setEndTime(endTime);
             process.calculateStats();
 
+            //Globale Stats Aanpassen
+            totWaitTime = totWaitTime + process.getWaitTime();
+            totTAT = totTAT + process.getTAT();
+            totNormTAT = totNormTAT + process.getNormTAT();
+
         }
+
+        //Globale stats uitprinten van FCFS
+        int size = processList.size();
+        System.out.println("----------First Come First Served for "+size+" processes"+"----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
         return processList;
     }

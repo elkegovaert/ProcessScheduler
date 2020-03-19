@@ -2,6 +2,10 @@ import java.util.*;
 
 public class ShortestJobFirst{
 
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
+
     public ShortestJobFirst() {
     }
 
@@ -42,31 +46,24 @@ public class ShortestJobFirst{
 
                 doneJobs.add(process);
 
-                /*
-                //globale parameters updaten
-                waittime += temp.getWaitTime();
-                normtat += temp.getNormTAT();
-                tat += temp.getTAT();
+                //Globale Stats Aanpassen
+                totWaitTime = totWaitTime + process.getWaitTime();
+                totTAT = totTAT + process.getTAT();
+                totNormTAT = totNormTAT + process.getNormTAT();
 
-                 */
             }else {
                 currentTime++;
             }
 
         }
 
-        /*
-        waittime = waittime / processList.size();
-        normtat = normtat / processList.size();
-        tat = tat / processList.size();
+        //Globale stats uitprinten van FCFS
+        int size = processList.size();
+        System.out.println("----------Shortest Job First for "+size+" processes"+"----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
-        StringBuffer sb = new StringBuffer();
-
-        sb.append("Glob parameters SJF ");
-        sb.append(waittime + " " + normtat + " " + tat + " ");
-
-        System.out.println(sb.toString());
-        */
 
         return doneJobs;
     }
