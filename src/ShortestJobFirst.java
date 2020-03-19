@@ -59,7 +59,7 @@ public class ShortestJobFirst{
 
         //Globale stats uitprinten van FCFS
         int size = processList.size();
-        System.out.println("----------Shortest Job First for "+size+" processes"+"----------");
+        System.out.println("----------Shortest Job First  for "+size+" processes"+"----------");
         System.out.println("Average Wait Time: "+totWaitTime/size);
         System.out.println("Average TAT: "+totTAT/size);
         System.out.println("Average Normalized TAT: "+totNormTAT/size);
