@@ -90,14 +90,14 @@ public class Main {
         MultiLevelFeedBack mlfb = new MultiLevelFeedBack();
 
         //lineair
-        List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "lineair");
-        List<Process> processlist2MLFBL = mlfb.schedule(processlist2, "lineair");
-        List<Process> processlist5MLFBL = mlfb.schedule(processlist5, "lineair");
+        List<Process> processlist1MLFBL = mlfb.schedule(processlist1, "constant");
+        List<Process> processlist2MLFBL = mlfb.schedule(processlist2, "constant");
+        List<Process> processlist5MLFBL = mlfb.schedule(processlist5, "constant");
 
         //stijgend
-        List<Process> processlist1MLFBS = mlfb.schedule(processlist1, "niet");
-        List<Process> processlist2MLFBS = mlfb.schedule(processlist2, "niet");
-        List<Process> processlist5MLFBS = mlfb.schedule(processlist5, "niet");
+        List<Process> processlist1MLFBS = mlfb.schedule(processlist1, "2^i");
+        List<Process> processlist2MLFBS = mlfb.schedule(processlist2, "2^i");
+        List<Process> processlist5MLFBS = mlfb.schedule(processlist5, "2^i");
 
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)

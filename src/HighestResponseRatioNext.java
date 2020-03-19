@@ -1,6 +1,9 @@
 import java.util.*;
 
 public class HighestResponseRatioNext {
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
 
     public HighestResponseRatioNext() {
     }
@@ -46,6 +49,9 @@ public class HighestResponseRatioNext {
 
                 currentRunningProcess.setEndTime(currentTime);
                 currentRunningProcess.calculateStats();
+                totWaitTime = totWaitTime + currentRunningProcess.getWaitTime();
+                totTAT = totTAT + currentRunningProcess.getTAT();
+                totNormTAT = totNormTAT + currentRunningProcess.getNormTAT();
 
                 doneJobs.add(currentRunningProcess);
 
@@ -67,7 +73,12 @@ public class HighestResponseRatioNext {
             }
         }
 
-
+        //Globale stats uitprinten van HRRN
+        int size = processList.size();
+        System.out.println("----------Highest Response Ratio Next for "+size+" processes"+"----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
         return doneJobs;
     }

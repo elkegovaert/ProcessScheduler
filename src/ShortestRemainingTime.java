@@ -2,6 +2,9 @@ import java.util.*;
 
 public class ShortestRemainingTime {
 
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
 
     public ShortestRemainingTime() {
     }
@@ -43,6 +46,11 @@ public class ShortestRemainingTime {
 
                     currentRunningProcess.setEndTime(curentTime);
                     currentRunningProcess.calculateStats();
+
+                    //Globale Stats Aanpassen
+                    totWaitTime = totWaitTime + currentRunningProcess.getWaitTime();
+                    totTAT = totTAT + currentRunningProcess.getTAT();
+                    totNormTAT = totNormTAT + currentRunningProcess.getNormTAT();
 
                     doneProcesses.add(currentRunningProcess);
                 }
@@ -87,9 +95,13 @@ public class ShortestRemainingTime {
             curentTime++;
         }
 
-        //uncoment volgende voor dropbox
+        //Globale stats uitprinten van SRT
+        int size = processList.size();
+        System.out.println("----------Shortest Remainging Time for "+size+" processes"+"----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
+
         return doneProcesses;
     }
 }
-
-

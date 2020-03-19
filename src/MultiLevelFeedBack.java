@@ -3,12 +3,21 @@ import sun.awt.image.ImageWatched;
 import java.util.*;
 
 public class MultiLevelFeedBack {
-    int timeslice;
+    private static int totWaitTime = 0;
+    private static int totTAT = 0;
+    private static double totNormTAT = 0;
     public MultiLevelFeedBack() {}
+
+    public void update(Process p) {
+        totWaitTime = totWaitTime + p.getWaitTime();
+        totTAT = totTAT + p.getTAT();
+        totNormTAT = totNormTAT + p.getNormTAT();
+
+    }
 
     public List<Process> schedule(List<Process> input, String timeslice) throws NullPointerException {
         int timeslice1, timeslice2, timeslice3, timeslice4, timeslice5;
-        if (timeslice.equals("lineair")) {
+        if (timeslice.equals("constant")) {
             timeslice1 = 10;
             timeslice2 = 10;
             timeslice3 = 10;
@@ -54,6 +63,7 @@ public class MultiLevelFeedBack {
                     timer = timer + tmp.getRemainingServiceTime();
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
+                    update(tmp);
                     resultaat.add(tmp);
                 } else {
                     timer = timer + timeslice1;
@@ -66,6 +76,7 @@ public class MultiLevelFeedBack {
                     timer = timer + tmp.getRemainingServiceTime();
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
+                    update(tmp);
                     resultaat.add(tmp);
                 } else {
                     timer = timer + timeslice2;
@@ -78,6 +89,7 @@ public class MultiLevelFeedBack {
                     timer = timer + tmp.getRemainingServiceTime();
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
+                    update(tmp);
                     resultaat.add(tmp);
                 } else {
                     timer = timer + timeslice3;
@@ -90,6 +102,7 @@ public class MultiLevelFeedBack {
                     timer = timer + tmp.getRemainingServiceTime();
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
+                    update(tmp);
                     resultaat.add(tmp);
                 } else {
                     timer = timer + timeslice4;
@@ -102,6 +115,7 @@ public class MultiLevelFeedBack {
                     timer = timer + tmp.getRemainingServiceTime();
                     tmp.setEndTime(timer);
                     tmp.calculateStats();
+                    update(tmp);
                     resultaat.add(tmp);
                 } else {
                     timer = timer + timeslice5;
@@ -115,6 +129,13 @@ public class MultiLevelFeedBack {
                 q1.add(tmp);
             }
         }
+
+        //Globale stats uitprinten van MLFB
+        int size = input.size();
+        System.out.println("----------Multilevel Feedback " + timeslice + " for "+size+" processes----------");
+        System.out.println("Average Wait Time: "+totWaitTime/size);
+        System.out.println("Average TAT: "+totTAT/size);
+        System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
         return resultaat;
     }
