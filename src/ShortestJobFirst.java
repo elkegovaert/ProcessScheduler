@@ -9,7 +9,7 @@ public class ShortestJobFirst{
     public ShortestJobFirst() {
     }
 
-    public List<Process> SJF(List<Process> processList) {
+    public List<Process> schedule(List<Process> processList) {
 
         totWaitTime = 0;
         totTAT = 0;
@@ -36,12 +36,11 @@ public class ShortestJobFirst{
             }
                 
 
-            //process uitvoeren als er één klaar is om uitgevoerd te worden, vervolgens de count aanpassen
+            //processen uitvoeren als er zijn
             if (!readyJobs.isEmpty()) {
-                //Uit te voeren process uit de wachtrij halen
+
                 process=readyJobs.poll();
 
-                //Parmeters instellen
                 process.setStartTime(currentTime);
                 currentTime =currentTime + process.getServiceTime();
                 process.setEndTime(currentTime);

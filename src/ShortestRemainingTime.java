@@ -9,7 +9,7 @@ public class ShortestRemainingTime {
     public ShortestRemainingTime() {
     }
 
-    public List<Process> SRT(List<Process> processList) {
+    public List<Process> schedule(List<Process> processList) {
 
         totWaitTime = 0;
         totTAT = 0;

@@ -60,12 +60,6 @@ public class ReadXMLFile {
                 processList.add(process);
             }
         }
-        //enkel voor dubbelcheck uitsschrijven
-        /*
-        for (int i = 0; i < processList.size(); i++) {
-            System.out.println(processList.get(i).getId() + " " + processList.get(i).getArrivalTime() + " " + processList.get(i).getServiceTime());
-        }
-*/
         return processList;
 
     }

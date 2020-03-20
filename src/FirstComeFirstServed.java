@@ -12,7 +12,7 @@ public class FirstComeFirstServed {
     public FirstComeFirstServed() {}
 
     //First Come First Served Scheduling Algorithme
-    static public List<Process> FCFS(List<Process> processList) {
+    static public List<Process> schedule(List<Process> processList) {
 
         totWaitTime = 0;
         totTAT = 0;
@@ -25,7 +25,6 @@ public class FirstComeFirstServed {
         }
 
         List<Process> doneProcesses = new ArrayList<Process>();
-
 
         Queue<Process> readyProcesses = new LinkedList<Process>();
         int currentTime = 0;
@@ -51,6 +50,8 @@ public class FirstComeFirstServed {
 
                 currentRunningProcess.setEndTime(currentTime);
                 currentRunningProcess.calculateStats();
+
+                //Globale stats aanpassen
                 totWaitTime = totWaitTime + currentRunningProcess.getWaitTime();
                 totTAT = totTAT + currentRunningProcess.getTAT();
                 totNormTAT = totNormTAT + currentRunningProcess.getNormTAT();
@@ -62,9 +63,6 @@ public class FirstComeFirstServed {
                 currentTime++;
             }
         }
-
-
-
 
         //Globale stats uitprinten van FCFS
         int size = doneProcesses.size();

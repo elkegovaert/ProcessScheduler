@@ -8,7 +8,7 @@ public class HighestResponseRatioNext {
     public HighestResponseRatioNext() {
     }
 
-    public List<Process> HRRN(List<Process> processList) {
+    public List<Process> schedule(List<Process> processList) {
 
         totWaitTime = 0;
         totTAT = 0;
@@ -59,7 +59,7 @@ public class HighestResponseRatioNext {
 
                 doneJobs.add(currentRunningProcess);
 
-                //check if there are jobs to add to ready queue
+                //check of er process is om aan ready queue toe te voegen
                 while(toDoJobs.size() != 0 && toDoJobs.peek().getArrivalTime()<=currentTime){
                     readyJobs.add(toDoJobs.poll());
                 }

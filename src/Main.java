@@ -1,24 +1,8 @@
 import org.xml.sax.SAXException;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.statistics.HistogramDataset;
-
-import javax.swing.plaf.multi.MultiInternalFrameUI;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import java.awt.EventQueue;
-
-//import jdk.internal.org.xml.sax.SAXException;
-//test voor git werkt het?
 import java.io.IOException;
-import java.time.Clock;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 
 public class Main {
@@ -34,26 +18,28 @@ public class Main {
         //Alle algorithmes uitvoeren
 
         //FCFS
-
         FirstComeFirstServed fcfs = new FirstComeFirstServed();
 
-        List<Process> processlist1FCFS=fcfs.FCFS(processlist1);
-        List<Process> processlist2FCFS=fcfs.FCFS(processlist2);
-        List<Process> processlist5FCFS=fcfs.FCFS(processlist5);
+        List<Process> processlist1FCFS=fcfs.schedule(processlist1);
+        List<Process> processlist2FCFS=fcfs.schedule(processlist2);
+        List<Process> processlist5FCFS=fcfs.schedule(processlist5);
 
 
         //RR
         RoundRobin rr2 = new RoundRobin(2);
+
         List<Process> processlist1RR2 = rr2.schedule(processlist1);
         List<Process> processlist2RR2= rr2.schedule(processlist2);
         List<Process> processlist5RR2= rr2.schedule(processlist5);
 
         RoundRobin rr4 = new RoundRobin(4);
+
         List<Process> processlist1RR4 = rr4.schedule(processlist1);
         List<Process> processlist2RR4= rr4.schedule(processlist2);
         List<Process> processlist5RR4= rr4.schedule(processlist5);
 
         RoundRobin rr8 = new RoundRobin(8);
+
         List<Process> processlist1RR8 = rr8.schedule(processlist1);
         List<Process> processlist2RR8 = rr8.schedule(processlist2);
         List<Process> processlist5RR8 = rr8.schedule(processlist5);
@@ -61,25 +47,25 @@ public class Main {
         //SJF
         ShortestJobFirst sjf = new ShortestJobFirst();
 
-        List<Process> processlist1SJF= sjf.SJF(processlist1);
-        List<Process> processlist2SJF=sjf.SJF(processlist2);
-        List<Process> processlist5SJF=sjf.SJF(processlist5);
+        List<Process> processlist1SJF= sjf.schedule(processlist1);
+        List<Process> processlist2SJF=sjf.schedule(processlist2);
+        List<Process> processlist5SJF=sjf.schedule(processlist5);
 
 
 		//SRT
 		ShortestRemainingTime srt = new ShortestRemainingTime();
 
-		List<Process> processlist1SRT= srt.SRT(processlist1);
-		List<Process> processlist2SRT=srt.SRT(processlist2);
-		List<Process> processlist5SRT=srt.SRT(processlist5);
+		List<Process> processlist1SRT= srt.schedule(processlist1);
+		List<Process> processlist2SRT=srt.schedule(processlist2);
+		List<Process> processlist5SRT=srt.schedule(processlist5);
 
 
         //HRRN
         HighestResponseRatioNext hrrn = new HighestResponseRatioNext();
 
-        List<Process> processlist1HRRN= hrrn.HRRN(processlist1);
-        List<Process> processlist2HRRN=hrrn.HRRN(processlist2);
-        List<Process> processlist5HRRN=hrrn.HRRN(processlist5);
+        List<Process> processlist1HRRN= hrrn.schedule(processlist1);
+        List<Process> processlist2HRRN=hrrn.schedule(processlist2);
+        List<Process> processlist5HRRN=hrrn.schedule(processlist5);
 
         //MLFB
         MultiLevelFeedBack mlfb = new MultiLevelFeedBack();

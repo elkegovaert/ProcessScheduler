@@ -1,5 +1,3 @@
-import sun.awt.image.ImageWatched;
-
 import java.util.*;
 
 public class MultiLevelFeedBack {
@@ -23,12 +21,12 @@ public class MultiLevelFeedBack {
             timeslice3 = 10;
             timeslice4 = 10;
             timeslice5 = 10;
-        } else {//10,20,40,80,160
-            timeslice1 = 5;
-            timeslice2 = 5;
-            timeslice3 = 5;
-            timeslice4 = 5;
-            timeslice5 = 5;
+        } else {
+            timeslice1 = 1;
+            timeslice2 = 2;
+            timeslice3 = 4;
+            timeslice4 = 8;
+            timeslice5 = 16;
         }
 
         totWaitTime = 0;
