@@ -10,6 +10,10 @@ public class HighestResponseRatioNext {
 
     public List<Process> HRRN(List<Process> processList) {
 
+        totWaitTime = 0;
+        totTAT = 0;
+        totNormTAT = 0;
+
         Queue<Process> toDoJobs = new LinkedList<>();
 
         for (int i=0; i<processList.size(); i++) {

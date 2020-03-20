@@ -11,6 +11,10 @@ public class ShortestRemainingTime {
 
     public List<Process> SRT(List<Process> processList) {
 
+        totWaitTime = 0;
+        totTAT = 0;
+        totNormTAT = 0;
+
         Queue<Process> toDoJobs = new LinkedList<>();
 
         for (int i = 0; i<processList.size(); i++) {

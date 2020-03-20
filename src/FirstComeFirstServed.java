@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class FirstComeFirstServed {
 
@@ -11,58 +14,66 @@ public class FirstComeFirstServed {
     //First Come First Served Scheduling Algorithme
     static public List<Process> FCFS(List<Process> processList) {
 
-        //Process 1 wordt steeds als eerste uitgevoerd
-        Process process1 = processList.get(0);
-        int serviceTime1=process1.getServiceTime();
-        int endTime1=process1.getServiceTime()+process1.getArrivalTime();
-        process1.setEndTime(endTime1);
-        process1.setWaitTime(0);
-        process1.setStartTime(process1.getArrivalTime());
-        process1.setTAT(0+serviceTime1);
-        process1.setNormTAT(process1.getTAT()/serviceTime1);
+        totWaitTime = 0;
+        totTAT = 0;
+        totNormTAT = 0;
 
-        //stats aanpassen
-        totTAT = process1.getTAT();
-        totNormTAT = process1.getNormTAT();
+        Queue<Process> toDoProcesses = new LinkedList<>();
 
-        for(int i=1;i<processList.size();i++) {
-
-            Process processVorige = processList.get(i-1);
-            Process process=processList.get(i);
-            int arrivalTime = process.getArrivalTime();
-            int serviceTime = process.getServiceTime();
-            int waitTime = processVorige.getEndTime()-arrivalTime;
-            if(waitTime<0)waitTime=0;
-            int startTime;
-            if(processVorige.getEndTime()<arrivalTime) {
-                startTime=arrivalTime;
-            }
-            else {
-                startTime=processVorige.getEndTime();
-            }
-            int endTime = startTime+serviceTime;
-            int TAT = serviceTime + waitTime;
-            double normTAT = (double)TAT/(double)serviceTime;
-
-            process.setStartTime(startTime);
-            process.setEndTime(endTime);
-            process.calculateStats();
-
-            //Globale Stats Aanpassen
-            totWaitTime = totWaitTime + process.getWaitTime();
-            totTAT = totTAT + process.getTAT();
-            totNormTAT = totNormTAT + process.getNormTAT();
-
+        for (int i=0; i<processList.size(); i++) {
+            toDoProcesses.add(new Process(processList.get(i)));
         }
 
+        List<Process> doneProcesses = new ArrayList<Process>();
+
+
+        Queue<Process> readyProcesses = new LinkedList<Process>();
+        int currentTime = 0;
+        Process currentRunningProcess;
+
+        while(doneProcesses.size()!=processList.size()){
+
+            //check for incoming processes
+            while(toDoProcesses.size() != 0 && toDoProcesses.peek().getArrivalTime()<=currentTime){
+                readyProcesses.add(toDoProcesses.poll());
+            }
+
+            if (!readyProcesses.isEmpty()) {
+
+                currentRunningProcess = readyProcesses.poll();
+
+                //Start Time
+                if(currentRunningProcess.getStartTime()==0){
+                    currentRunningProcess.setStartTime(currentTime);
+                }
+
+                currentTime = currentTime + currentRunningProcess.getServiceTime();
+
+                currentRunningProcess.setEndTime(currentTime);
+                currentRunningProcess.calculateStats();
+                totWaitTime = totWaitTime + currentRunningProcess.getWaitTime();
+                totTAT = totTAT + currentRunningProcess.getTAT();
+                totNormTAT = totNormTAT + currentRunningProcess.getNormTAT();
+
+                doneProcesses.add(currentRunningProcess);
+
+            }
+            else{
+                currentTime++;
+            }
+        }
+
+
+
+
         //Globale stats uitprinten van FCFS
-        int size = processList.size();
+        int size = doneProcesses.size();
         System.out.println("----------First Come First Served for "+size+" processes"+"----------");
         System.out.println("Average Wait Time: "+totWaitTime/size);
         System.out.println("Average TAT: "+totTAT/size);
         System.out.println("Average Normalized TAT: "+totNormTAT/size);
 
-        return processList;
+        return doneProcesses;
     }
 
 }

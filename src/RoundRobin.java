@@ -10,6 +10,11 @@ public class RoundRobin {
     public RoundRobin(int q) { this.q = q; }
 
     public List<Process> schedule(List<Process> procs) throws NullPointerException {
+
+        totWaitTime = 0;
+        totTAT = 0;
+        totNormTAT = 0;
+
         //kopietje om gegevens niet te wijzigen
         Queue<Process> processen = new LinkedList<>();
 

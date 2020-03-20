@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Process implements Comparable {
     private int id;
     private int arrivalTime;
@@ -56,7 +58,6 @@ public class Process implements Comparable {
     public void calculateResponseRatio() {
         responseRatio = ((double)waitTime+(double)serviceTime)/(double)serviceTime;
     }
-
 
     //getters en setters
     public int getId() {

@@ -73,11 +73,6 @@ public class Main {
 		List<Process> processlist2SRT=srt.SRT(processlist2);
 		List<Process> processlist5SRT=srt.SRT(processlist5);
 
-        /*for(int i = 0; i < 20;i++){
-            System.out.println("2: " + processlist5RR2.get(i));
-            System.out.println("4: " + processlist5RR4.get(i));
-            System.out.println("8: " + processlist5RR8.get(i));
-        }*/
 
         //HRRN
         HighestResponseRatioNext hrrn = new HighestResponseRatioNext();
