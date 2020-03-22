@@ -82,7 +82,7 @@ public class Main {
 
 
         //Plotten van grafieken Tw (Time Wait) in functie van Ts (Time Service)
-        // en genom. TAT in functie van T sevrice
+        // en genom. TAT in functie van T service
 
         plotNormTAT(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, processlist1MLFBL, processlist1MLFBS);
         plotTimeWait(processlist1FCFS, processlist1RR2, processlist1RR4, processlist1RR8, processlist1SJF, processlist1SRT, processlist1HRRN, processlist1MLFBL, processlist1MLFBS);

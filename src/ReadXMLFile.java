@@ -19,11 +19,10 @@ public class ReadXMLFile {
 
         List<Process> processList = new ArrayList<>();
 
-        //aan te passen
         // ELKE
-        // File xmlFile = new File("C:\\Users\\elkeg\\IdeaProjects\\ProcessScheduler\\"+bestandnaam);
+        File xmlFile = new File("C:\\Users\\elkeg\\IdeaProjects\\ProcessScheduler\\"+bestandnaam);
         // GLENN
-        File xmlFile = new File("C:\\Users\\glenn\\eclipse-workspace\\ProcessScheduler\\"+bestandnaam);
+        // File xmlFile = new File("C:\\Users\\glenn\\eclipse-workspace\\ProcessScheduler\\"+bestandnaam);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(xmlFile);

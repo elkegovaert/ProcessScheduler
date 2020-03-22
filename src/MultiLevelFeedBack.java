@@ -57,7 +57,6 @@ public class MultiLevelFeedBack {
 
             if (!q1.isEmpty()) {
                 tmp = q1.poll();
-                // mag enkel de 1e keer gezet worden
                 if (tmp.getServiceTime() == tmp.getRemainingServiceTime()) {
                     tmp.setStartTime(timer);
                 }

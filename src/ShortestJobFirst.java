@@ -60,7 +60,7 @@ public class ShortestJobFirst{
 
         }
 
-        //Globale stats uitprinten van FCFS
+        //Globale stats uitprinten van SJF
         int size = processList.size();
         System.out.println("----------Shortest Job First  for "+size+" processes"+"----------");
         System.out.println("Average Wait Time: "+totWaitTime/size);

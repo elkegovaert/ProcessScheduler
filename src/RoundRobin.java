@@ -15,23 +15,18 @@ public class RoundRobin {
         totTAT = 0;
         totNormTAT = 0;
 
-        //kopietje om gegevens niet te wijzigen
         Queue<Process> processen = new LinkedList<>();
-
-        //resultaat dat we terug geven
         List<Process> resultaat = new ArrayList<Process>();
 
         for (Process p : procs) {
             processen.add(new Process(p));
         }
 
-        //queue waarin processen wachten als ze al toegekomen zijn maar nog niet bezig zijn
         Queue<Process> queue = new LinkedList<>();
         int timer = 0;
         Process tmp;
 
         while (resultaat.size() != procs.size()) {
-            // als er niks in de queue zit, maar wel nog processen bijkomen
             if (!processen.isEmpty() && queue.isEmpty()) {
                 tmp = processen.poll();
                 timer = tmp.getArrivalTime();
@@ -41,7 +36,6 @@ public class RoundRobin {
                 tmp = queue.poll();
             }
 
-            //als we het in 1 keer kunnen doen
             if (tmp.getRemainingServiceTime() <= q) {
                 timer = timer + tmp.getRemainingServiceTime();
                 while (!processen.isEmpty() && processen.peek().getArrivalTime() <= timer) {
@@ -72,7 +66,7 @@ public class RoundRobin {
             }
         }
 
-        //Globale stats uitprinten van FCFS
+        //Globale stats uitprinten van RR
         int size = procs.size();
         System.out.println("----------Round Robin with q="+q+" for "+size+" processes"+"----------");
         System.out.println("Average Wait Time: "+totWaitTime/size);

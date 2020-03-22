@@ -58,7 +58,7 @@ public class LineChart extends JFrame {
         XYPlot xyPlot = (XYPlot) chart.getPlot();
 
         NumberAxis domain = (NumberAxis) xyPlot.getDomainAxis();
-        domain.setRange(0.00, 450.00);
+        domain.setRange(0.00, 260.00);
 
         NumberAxis range = (NumberAxis) xyPlot.getRangeAxis();
         range.setRange(0.0, 100.0);
@@ -169,8 +169,6 @@ public class LineChart extends JFrame {
                 totWaitTime = totWaitTime + processes.get(i+(percentielNummer-1)*processesPerPercentiel).getWaitTime();
 
             }
-            //System.out.println(totServiceTime/processesPerPercentiel);
-            //System.out.println(totWaitTime/processesPerPercentiel);
             series.add(totServiceTime/processesPerPercentiel, totWaitTime/processesPerPercentiel);
         }
 
@@ -225,8 +223,6 @@ public class LineChart extends JFrame {
 
         plot.setDomainGridlinesVisible(true);
         plot.setDomainGridlinePaint(Color.BLACK);
-
-        //chart.getLegend().setFrame(BlockBorder.NONE);
 
         chart.setTitle(new TextTitle(title,
                         new Font("Serif", java.awt.Font.BOLD, 18)
